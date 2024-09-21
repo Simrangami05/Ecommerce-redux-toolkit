@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {AiOutlinePlusCircle} from 'react-icons/ai'
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 
 export const ProductCart = ({ key, id, cover, name, price }) => {
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch(cartActions.addToCart({ id, name, price, cover }));
+  };
   return (
     <>
       <div className="box boxItems" id="product">
@@ -14,7 +19,7 @@ export const ProductCart = ({ key, id, cover, name, price }) => {
         <div className="details">
           <h3>${price}</h3>
           <p>{name}</p>
-          <button>
+          <button onClick={addToCart}>
             <AiOutlinePlusCircle />
           </button>
         </div>

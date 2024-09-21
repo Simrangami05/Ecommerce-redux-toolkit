@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import {IoSettingsOutline} from 'react-icons/io5'
-import {BsBagCheck} from 'react-icons/bs'
-import {AiOutlineHeart} from 'react-icons/ai'
-import {GrHelp} from 'react-icons/gr'
-import {BiLogOut} from 'react-icons/bi'
+import { IoSettingsOutline } from "react-icons/io5";
+import { BsBagCheck } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
+import { GrHelp } from "react-icons/gr";
+import { BiLogOut } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/authSlice";
+
 
 export const User = () => {
   const user = true;
@@ -12,6 +16,11 @@ export const User = () => {
   const close = () => {
     setProfileOpen(null);
   };
+
+  const dispatch = useDispatch();
+  const logoutHandler = e =>{
+    dispatch(authActions.logout())
+  }
 
   return (
     <>
@@ -32,31 +41,38 @@ export const User = () => {
               <div className="openProfile boxItems" onClick={close}>
                 <div className="image">
                   <div className="img">
-                    <img src="https://cdn-icons-png.flaticon.com/128/6997/6997662.png" alt="" />
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/128/6997/6997662.png"
+                      alt=""
+                    />
                   </div>
-                  <div className="text">
-                    <h4>Simran Gami</h4>
-                    <label htmlFor="">Nepal,Kathmandu</label>
-                  </div>
+                  <Link to="/account">
+                    <div className="text">
+                      <h4>Simran Gami</h4>
+                      <label htmlFor="">Nepal,Kathmandu</label>
+                    </div>
+                  </Link>
                 </div>
+                <Link to="/login">
+                  <button className="box">
+                    <IoSettingsOutline className="icon" />
+                    <h4>My Account</h4>
+                  </button>
+                </Link>
                 <button className="box">
-                  <IoSettingsOutline className="icon"/>
-                  <h4>My Account</h4>
-                </button>
-                <button className="box">
-                  <BsBagCheck className="icon"/>
+                  <BsBagCheck className="icon" />
                   <h4>My Order</h4>
                 </button>
                 <button className="box">
-                  <AiOutlineHeart className="icon"/>
+                  <AiOutlineHeart className="icon" />
                   <h4>Wishlist</h4>
                 </button>
                 <button className="box">
-                  <GrHelp className="icon"/>
+                  <GrHelp className="icon" />
                   <h4>Help</h4>
                 </button>
-                <button className="box">
-                  <BiLogOut className="icon"/>
+                <button className="box" onClick={logoutHandler}>
+                  <BiLogOut className="icon" />
                   <h4>Log Out</h4>
                 </button>
               </div>

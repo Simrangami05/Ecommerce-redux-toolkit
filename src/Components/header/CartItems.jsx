@@ -1,7 +1,18 @@
 import React from "react";
-import {AiOutlineClose, AiOutlinePlus, AiOutlineMinus} from "react-icons/ai"
+import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 
 export const CartItems = ({ id, cover, name, price, quantity, totalPrice }) => {
+  const dispatch = useDispatch();
+
+  const incCartitems = () => {
+    dispatch(cartActions.addToCart({ id, name, price }));
+  };
+
+  const descCartitems = () => {
+    cartActions.removeFromCart({ id });
+  };
+
   return (
     <>
       <div className="cardList" key={id}>
@@ -9,7 +20,7 @@ export const CartItems = ({ id, cover, name, price, quantity, totalPrice }) => {
           <div className="img">
             <img src={cover} alt="" />
             <button className="remove flexCenter">
-              <AiOutlineClose/>
+              <AiOutlineClose />
             </button>
           </div>
           <div className="details">
@@ -17,14 +28,12 @@ export const CartItems = ({ id, cover, name, price, quantity, totalPrice }) => {
             <label htmlFor="">Unit Price ${price}</label>
             <div className="price">
               <div className="qty flexCenter">
-                <button className="plus">
-                  <AiOutlinePlus/>
+                <button className="plus" onClick={incCartitems}>
+                  <AiOutlinePlus />
                 </button>
-                <button className="num">
-                  1{quantity}
-                </button>
-                <button className="minus">
-                <AiOutlineMinus/>
+                <button className="num">1{quantity}</button>
+                <button className="minus" onClick={descCartitems}>
+                  <AiOutlineMinus />
                 </button>
               </div>
               <div className="priceTitle">${totalPrice}</div>
